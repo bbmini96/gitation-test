@@ -1,2 +1,2 @@
-deploy_basic:v1
+deploy_basic:v2
 
