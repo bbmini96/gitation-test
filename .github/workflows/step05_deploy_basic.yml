@@ -26,4 +26,3 @@ jobs:
           cd ${{ github.workspace }}
           scp -i ~/private-key.pem -r ./* ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }} 
           echo "Copied Repository Files"
-          
