@@ -27,13 +27,15 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        
+    
+    # 보이지 않게 해서 build를 할 수 있게 한다  
     - uses: actions/checkout@v2
     - run: | 
         mkdir ./src/main/resources
         touch ./src/main/resources/application.properties
     - run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.properties
-    
+
+    # 생성을 하면 properties에 등록된것들을 모든 사람이 보고 쓸 수 있기 때문에 생성하면 안된다
     # - uses: actions/upload-artifact@v2
     #   with: 
     #     name: application.properties
