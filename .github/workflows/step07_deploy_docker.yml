@@ -56,7 +56,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
+            docker stop $(docker ps -a -q)
+            docker rm $(docker ps -a -q)
             docker pull changchang01/github-action-docker
             docker run -d -p 8080:8080 --name github-action-backend changchang01/github-action-docker
-            
+            docker system prune -f
             
