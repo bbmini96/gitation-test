@@ -19,8 +19,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-
-
+        
     - uses: actions/checkout@v2
     - run: |
         mkdir -p ./src/main/resources
@@ -42,13 +41,12 @@ jobs:
     - name: Docker Hub Push Image
       run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/github-action-docker
 
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Excute Remote SSH Command Using SSH_PRIVATE_KEY
+      - name: Excute Remote SSH Commands Using SSH_PRIVATE_KEY
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.REMOTE_HOST }}
@@ -58,7 +56,6 @@ jobs:
           script: |
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
-            docker pull changchang01/github-action-docker
-            docker run -d -p 8080:8080 --name github-action-backend changchang01/github-action-docker
+            docker pull dockerlecture/github-action-docker
+            docker run -d -p 8080:8080 --name github-action-backend dockerlecture/github-action-docker
             docker system prune -f
-            
